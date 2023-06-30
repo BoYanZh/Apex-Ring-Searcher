@@ -45,9 +45,9 @@
 	}
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
 <svg
 	bind:this={svg}
+	role="presentation"
 	on:mousedown={startDrag}
 	on:mousemove={drag}
 	on:mouseup={endDrag}
