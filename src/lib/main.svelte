@@ -11,30 +11,34 @@
 			{ id: 'bm', name: 'Broken Moon' }
 		],
 		map = maps[1],
-		rings = {
-			ring1: {
+		userRings = [
+			{
+				id: 'user-ring-1',
+				round: 1,
 				x: 325,
 				y: 325,
-				radius: 173
+				r: 173
 			},
-			ring2: {
+			{
+				id: 'user-ring-2',
+				round: 2,
 				x: 325,
 				y: 325,
-				radius: 94
+				r: 94
 			}
-		},
-		results = [];
+		],
+		searchResults = [];
 </script>
 
 <div class="flex flex-col">
 	<section class="m-auto p-2">
 		<Select bind:map {maps} />
-		<Search bind:results {rings} />
+		<Search bind:results={searchResults} {map} rings={userRings} />
 	</section>
 	<section class="m-auto p-2">
-		<Map bind:rings {map} {results} />
+		<Map bind:rings={userRings} {map} results={searchResults} />
 	</section>
 	<section class="m-auto p-2">
-		<CheckList bind:results />
+		<CheckList bind:results={searchResults} />
 	</section>
 </div>

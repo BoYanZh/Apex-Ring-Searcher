@@ -1,21 +1,22 @@
 <script>
-	export let rings, results;
+	export let rings, results, map;
 	function onSearch() {
 		// TODO: search here
+		console.log(map);
 		results = [
 			{
 				score: 80,
 				rings: [
-					{ x: 330, y: 320, radius: rings.ring1.radius, color: 'red' },
-					{ x: 330, y: 320, radius: rings.ring2.radius, color: 'red' }
+					{ id: 'gameId1-ring-1', x: 330, y: 320, r: rings[0].r, color: 'red' },
+					{ id: 'gameId1-ring-2', x: 330, y: 320, r: rings[1].r, color: 'red' }
 				],
 				visible: true
 			},
 			{
 				score: 55,
 				rings: [
-					{ x: 523, y: 523, radius: rings.ring1.radius, color: 'cyan' },
-					{ x: 523, y: 523, radius: rings.ring2.radius, color: 'cyan' }
+					{ id: 'gameId2-ring-1', x: 523, y: 523, r: rings[0].r, color: 'cyan' },
+					{ id: 'gameId2-ring-2', x: 523, y: 523, r: rings[1].r, color: 'cyan' }
 				],
 				visible: true
 			}

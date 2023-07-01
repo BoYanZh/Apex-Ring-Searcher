@@ -3,7 +3,6 @@
 
 	export let map, rings, results;
 	let svg;
-	$: ringEntries = Object.entries(rings);
 	function getMousePosition(evt) {
 		const CTM = svg.getScreenCTM();
 		if (evt.touches) evt = evt.touches[0];
@@ -14,19 +13,17 @@
 	}
 	var selectedId, offset;
 
-	const idSuffix = '-user-ring';
-	function getSelectRing() {
-		return rings[
-			selectedId.endsWith(idSuffix) ? selectedId.slice(0, -idSuffix.length) : selectedId
-		];
+	function getSelectedRing() {
+		return rings.find((element) => element.id === selectedId);
 	}
 
 	function startDrag(evt) {
 		if (evt.target.classList.contains('draggable')) {
 			selectedId = evt.target.id;
 			offset = getMousePosition(evt);
-			offset.x -= getSelectRing().x;
-			offset.y -= getSelectRing().y;
+			const ring = getSelectedRing();
+			offset.x -= ring.x;
+			offset.y -= ring.y;
 		}
 	}
 
@@ -34,9 +31,10 @@
 		if (selectedId) {
 			evt.preventDefault();
 			var coord = getMousePosition(evt);
-			getSelectRing().x = coord.x - offset.x;
-			getSelectRing().y = coord.y - offset.y;
-			ringEntries = ringEntries;
+			const ring = getSelectedRing();
+			ring.x = coord.x - offset.x;
+			ring.y = coord.y - offset.y;
+			rings = rings;
 		}
 	}
 
@@ -66,12 +64,14 @@
 		{#each results as result}
 			{#each result.rings as ring}
 				{#if result.visible}
-					<Ring cx={ring.x} cy={ring.y} r={ring.radius} color={ring.color} draggable={false} />
+					<Ring {...ring} draggable={false} />
 				{/if}
 			{/each}
 		{/each}
 	</g>
-	{#each ringEntries as [key, value]}
-		<Ring id={key + idSuffix} cx={value.x} cy={value.y} r={value.radius} />
-	{/each}
+	<g id="user-rings">
+		{#each rings as ring}
+			<Ring {...ring} />
+		{/each}
+	</g>
 </svg>

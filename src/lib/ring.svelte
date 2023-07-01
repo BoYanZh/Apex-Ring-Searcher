@@ -1,7 +1,7 @@
 <script>
 	export let id,
-		cx,
-		cy,
+		x,
+		y,
 		r,
 		color = 'white',
 		draggable = true;
@@ -10,8 +10,8 @@
 <circle
 	class={draggable ? 'draggable' : ''}
 	{id}
-	{cx}
-	{cy}
+	cx={x}
+	cy={y}
 	{r}
 	stroke={color}
 	stroke-width="2"
