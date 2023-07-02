@@ -34,7 +34,7 @@
 <Corner />
 <div class="flex flex-col">
 	<section class="m-auto p-1">
-		<Select bind:map bind:resultCount {maps} />
+		<Select bind:map bind:searchResults bind:resultCount {maps} />
 		<Search bind:searchResults {map} {userRings} />
 	</section>
 	<section class="m-auto p-1">
