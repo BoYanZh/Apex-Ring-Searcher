@@ -14,31 +14,31 @@
 		userRings = [
 			{
 				id: 'user-ring-1',
-				round: 1,
 				x: 325,
 				y: 325,
 				r: 173
 			},
 			{
 				id: 'user-ring-2',
-				round: 2,
 				x: 325,
 				y: 325,
 				r: 94
 			}
 		],
-		searchResults = [];
+		searchResults = [],
+		visibilitys = [true, false, false, false, false],
+		resultCount = 5;
 </script>
 
 <div class="flex flex-col">
 	<section class="m-auto p-2">
-		<Select bind:map {maps} />
-		<Search bind:results={searchResults} {map} rings={userRings} />
+		<Select bind:map bind:resultCount {maps} />
+		<Search bind:searchResults {map} {userRings} />
 	</section>
 	<section class="m-auto p-2">
-		<Map bind:rings={userRings} {map} results={searchResults} />
+		<Map bind:userRings {map} {searchResults} {resultCount} {visibilitys} />
 	</section>
 	<section class="m-auto p-2">
-		<CheckList bind:results={searchResults} />
+		<CheckList bind:searchResults {resultCount} bind:visibilitys />
 	</section>
 </div>

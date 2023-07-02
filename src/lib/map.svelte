@@ -1,7 +1,7 @@
 <script>
 	import Ring from '$lib/ring.svelte';
 
-	export let map, rings, results;
+	export let map, userRings, searchResults, resultCount, visibilitys;
 	let svg;
 	function getMousePosition(evt) {
 		const CTM = svg.getScreenCTM();
@@ -14,7 +14,7 @@
 	var selectedId, offset;
 
 	function getSelectedRing() {
-		return rings.find((element) => element.id === selectedId);
+		return userRings.find((element) => element.id === selectedId);
 	}
 
 	function startDrag(evt) {
@@ -34,7 +34,7 @@
 			const ring = getSelectedRing();
 			ring.x = coord.x - offset.x;
 			ring.y = coord.y - offset.y;
-			rings = rings;
+			userRings = userRings;
 		}
 	}
 
@@ -61,16 +61,16 @@
 >
 	<image id="image" href={`./maps/${map?.id}.jpg`} width="650" height="650" />
 	<g id="source-rings">
-		{#each results as result}
+		{#each searchResults.slice(0, resultCount) as result, i}
 			{#each result.rings as ring}
-				{#if result.visible}
+				{#if visibilitys[i]}
 					<Ring {...ring} draggable={false} />
 				{/if}
 			{/each}
 		{/each}
 	</g>
 	<g id="user-rings">
-		{#each rings as ring}
+		{#each userRings as ring}
 			<Ring {...ring} />
 		{/each}
 	</g>
