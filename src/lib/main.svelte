@@ -31,14 +31,14 @@
 </script>
 
 <div class="flex flex-col">
-	<section class="m-auto p-2">
+	<section class="m-auto p-1">
 		<Select bind:map bind:resultCount {maps} />
 		<Search bind:searchResults {map} {userRings} />
 	</section>
-	<section class="m-auto p-2">
+	<section class="m-auto p-1">
 		<Map bind:userRings {map} {searchResults} {resultCount} {visibilitys} />
 	</section>
-	<section class="m-auto p-2">
+	<section class="m-auto p-1">
 		<CheckList bind:searchResults {resultCount} bind:visibilitys />
 	</section>
 </div>

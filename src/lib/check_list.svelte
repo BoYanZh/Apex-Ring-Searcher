@@ -3,7 +3,7 @@
 </script>
 
 {#each searchResults.slice(0, resultCount) as result, i}
-	<div class="flex items-center mb-4">
+	<div class="flex items-center mb-1">
 		<input
 			id="default-checkbox"
 			type="checkbox"
