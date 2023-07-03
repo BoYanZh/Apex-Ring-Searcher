@@ -1,6 +1,5 @@
 <script>
 	import Select from '$lib/select.svelte';
-	import Search from '$lib/search.svelte';
 	import Map from '$lib/map.svelte';
 	import CheckList from '$lib/check_list.svelte';
 	import Corner from '$lib/corner.svelte';
@@ -35,10 +34,9 @@
 <div class="flex flex-col">
 	<section class="m-auto p-1">
 		<Select bind:map bind:searchResults bind:userRings bind:resultCount {maps} />
-		<Search bind:searchResults {map} {userRings} />
 	</section>
 	<section class="m-auto p-1">
-		<Map bind:userRings {map} {searchResults} {resultCount} {visibilitys} />
+		<Map bind:userRings {map} bind:searchResults {resultCount} {visibilitys} />
 	</section>
 	<section class="m-auto p-1">
 		<CheckList bind:searchResults {resultCount} bind:visibilitys />
