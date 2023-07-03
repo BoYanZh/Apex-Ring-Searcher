@@ -14,9 +14,10 @@
 				const d = Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
 				score += Math.exp(-d / 100) * (i + 1);
 			}
+			score = (((score * 100) / (1 + ringCount)) * ringCount) / 2;
 			return {
 				gameID: data.gameID,
-				score: score * 100,
+				score: score,
 				rings: rings.map((item, idx) => {
 					return {
 						id: `${data.gameID}-ring-${idx}`,
