@@ -2,6 +2,7 @@
 	export let map, maps, resultCount, searchResults, userRings;
 	function onMapChange() {
 		userRings.forEach((item, idx) => (item.r = map.ringRs[idx]));
+		userRings = userRings;
 		searchResults = [];
 	}
 	onMapChange();
