@@ -5,7 +5,7 @@
 		const similarity = (data) => {
 			const scale = (x) => (x / 16384) * 650;
 			let score = 0;
-			const rings = data.rings.slice(1);
+			const rings = data.rings;
 			if (!rings) return score;
 			let ringCount = Math.min(userRings.length, rings.length);
 			for (let i = 0; i < ringCount; ++i) {
