@@ -3,40 +3,29 @@
 	import Map from '$lib/map.svelte';
 	import CheckList from '$lib/check_list.svelte';
 	import Corner from '$lib/corner.svelte';
-	let maps = [
-			{ id: 'kc', name: 'Kings Canyon', ringRs: [159, 103, 63, 32, 16] },
-			{ id: 'we', name: "World's Edge", ringRs: [173, 94, 58, 29, 14] },
-			{ id: 'ol', name: 'Olympus', ringRs: [144, 94, 58, 29, 14] },
-			{ id: 'sp', name: 'Storm Point', ringRs: [178, 95, 51, 25, 13] },
-			{ id: 'bm', name: 'Broken Moon', ringRs: [196, 98, 60, 30, 15] }
-		],
-		map = maps[1],
-		userRings = [
-			{
-				id: 'user-ring-1',
-				x: 325,
-				y: 325,
-				r: 0
-			},
-			{
-				id: 'user-ring-2',
-				x: 325,
-				y: 325,
-				r: 0
-			}
-		],
+	import datas from '$lib/assets/datas.json';
+	import { scale, SIZE, USER_RINGS, MAX_RESULT_COUNT } from '$lib/utils.js';
+	let maps = Object.entries(datas).map(([k, v]) => ({
+			id: k,
+			name: `${v.mapName} (${Object.keys(v.rings).length})`,
+			ringRs: Object.values(v.rings)[0].map((x) => scale(x[2]))
+		})),
+		map = maps.find((e) => e.id == 'we'),
+		userRings = [...Array(USER_RINGS).keys()].map((x) => {
+			return { id: `user-ring-${x + 1}`, x: SIZE / 2, y: SIZE / 2, r: 0 };
+		}),
 		searchResults = [],
-		visibilitys = [true, false, false, false, false],
-		resultCount = 5;
+		visibilitys = [...Array(USER_RINGS).keys()].map((x) => x == 0),
+		resultCount = MAX_RESULT_COUNT;
 </script>
 
 <Corner />
 <div class="flex flex-col">
 	<section class="m-auto p-1">
-		<Select bind:map bind:searchResults bind:userRings bind:resultCount {maps} />
+		<Select bind:map bind:searchResults bind:userRings bind:resultCount {maps} {datas} />
 	</section>
-	<section class="m-auto p-1">
-		<Map bind:userRings {map} bind:searchResults {resultCount} {visibilitys} />
+	<section class="m-auto p-1 w-full max-w-2xl">
+		<Map bind:userRings bind:searchResults {map} {datas} {resultCount} {visibilitys} />
 	</section>
 	<section class="m-auto p-1">
 		<CheckList bind:searchResults {resultCount} bind:visibilitys />
