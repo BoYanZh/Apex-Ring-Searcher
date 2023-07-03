@@ -61,9 +61,9 @@
 >
 	<image id="image" href={`./maps/${map?.id}.jpg`} width="650" height="650" />
 	<g id="source-rings">
-		{#each searchResults.slice(0, resultCount) as result, i}
+		{#each searchResults.slice(0, resultCount).reverse() as result, i}
 			{#each result.rings as ring}
-				{#if visibilitys[i]}
+				{#if visibilitys[resultCount - 1 - i]}
 					<Ring {...ring} draggable={false} />
 				{/if}
 			{/each}
