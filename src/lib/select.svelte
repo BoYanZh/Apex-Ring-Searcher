@@ -1,5 +1,10 @@
 <script>
-	export let map, maps, resultCount, searchResults;
+	export let map, maps, resultCount, searchResults, userRings;
+	function onMapChange() {
+		userRings.forEach((item, idx) => (item.r = map.ringRs[idx]));
+		searchResults = [];
+	}
+	onMapChange();
 </script>
 
 <b>Map:</b>
@@ -7,7 +12,7 @@
 	id="maps"
 	class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 w-48 p-2.5"
 	bind:value={map}
-	on:change={() => (searchResults = [])}
+	on:change={onMapChange}
 >
 	{#each maps as m}
 		<option value={m}>
