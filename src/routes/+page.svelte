@@ -11,9 +11,15 @@
 	</main>
 	<footer class="text-center p-1">
 		<p>
-			Powered by <a class="text-blue-600 underline" href="https://kit.svelte.dev/">SvelteKit</a>
-			+
-			<a class="text-blue-600 underline" href="https://tailwindcss.com/">Tailwind CSS</a>.
+			<span>
+				Powered by <a class="text-blue-600 underline" href="https://kit.svelte.dev/">SvelteKit</a>
+				+
+				<a class="text-blue-600 underline" href="https://tailwindcss.com/">Tailwind CSS</a>.
+			</span>
+			<span id="busuanzi_container_page_pv">
+				Page PV: <span id="busuanzi_value_page_pv" />
+			</span>
+			<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 		</p>
 	</footer>
 </div>
