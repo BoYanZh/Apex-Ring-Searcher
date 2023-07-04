@@ -11,7 +11,8 @@
 	</main>
 	<footer class="text-center p-1">
 		<p>
-			Powered by <a class="text-blue-600 underline" href="https://kit.svelte.dev/">SvelteKit</a> +
+			Powered by <a class="text-blue-600 underline" href="https://kit.svelte.dev/">SvelteKit</a>
+			+
 			<a class="text-blue-600 underline" href="https://tailwindcss.com/">Tailwind CSS</a>.
 		</p>
 	</footer>

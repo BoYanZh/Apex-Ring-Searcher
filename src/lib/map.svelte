@@ -29,12 +29,12 @@
 		ring.x = coord.x - offset.x;
 		ring.y = coord.y - offset.y;
 		userRings = userRings;
-		search()
+		search();
 	}
 	function endDrag() {
 		selectedId = null;
 	}
-	$: actualResultCount = Math.min(resultCount, searchResults.length)
+	$: actualResultCount = Math.min(resultCount, searchResults.length);
 </script>
 
 <svg

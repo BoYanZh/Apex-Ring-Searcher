@@ -12,7 +12,7 @@ export const searchRings = (userRings, sourceRings) => {
 				const d = Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
 				score += Math.exp(-d / 100) * (i + 1);
 			}
-			score = (((score * 50) / (1 + userRings.length)) * userRings.length);
+			score = ((score * 50) / (1 + userRings.length)) * userRings.length;
 		}
 		return {
 			gameID: gameID,
