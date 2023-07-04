@@ -1,11 +1,10 @@
 <script>
-	export let map, maps, resultCount, searchResults, userRings, datas;
+	export let map, maps, resultCount, search, userRings;
 	import { onMount } from 'svelte';
-	import { search } from '$lib/utils.js';
 	function onMapChange() {
 		userRings.forEach((item, idx) => (item.r = map.ringRs[idx]));
 		userRings = userRings;
-		searchResults = search(userRings, datas[map.id].rings);
+		search();
 	}
 	onMount(() => onMapChange());
 </script>
