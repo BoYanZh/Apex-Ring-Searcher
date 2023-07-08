@@ -9,7 +9,7 @@
 	onMount(() => onMapChange());
 </script>
 
-<span class="p-2">
+<span class="inline-block p-2">
 	<b>Map:</b>
 	<select
 		id="maps"
@@ -24,7 +24,7 @@
 		{/each}
 	</select>
 </span>
-<span class="p-2">
+<span class="inline-block p-2">
 	<b>Count:</b>
 	<select
 		id="result-count"
