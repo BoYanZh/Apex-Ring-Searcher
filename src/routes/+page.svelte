@@ -6,7 +6,7 @@
 	<header class="text-center p-1">
 		<h1 class="text-blue-600 text-4xl font-bold align-middle">Apex Ring Searcher</h1>
 	</header>
-	<main class="flex-1 p-2">
+	<main class="flex-1 p-1">
 		<Main />
 	</main>
 	<footer class="text-center p-1">
