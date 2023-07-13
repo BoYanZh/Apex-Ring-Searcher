@@ -1,5 +1,6 @@
 <script>
 	import Ring from '$lib/ring.svelte';
+	import { base } from '$app/paths';
 	export let map, userRings, searchResults, resultCount, visibilitys, search;
 	let svg, selectedId, offset;
 	function getMousePosition(evt) {
@@ -53,7 +54,7 @@
 	viewBox="0 0 1024 1024"
 	preserveAspectRatio="xMidYMid meet"
 >
-	<image id="image" href={`./maps/${map?.id}.jpg`} width="1024" height="1024" />
+	<image id="image" href={`${base}/maps/${map?.id}.jpg`} width="1024" height="1024" />
 	<g id="source-rings">
 		{#each searchResults.slice(0, actualResultCount).reverse() as result, i}
 			{#each result.rings as ring}
