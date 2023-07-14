@@ -1,7 +1,7 @@
 <script>
 	import Ring from '$lib/ring.svelte';
 	import { base } from '$app/paths';
-	export let map, userRings, searchResults, resultCount, visibilitys, search;
+	export let map, userRings, searchResults, resultCount, visibilitys, search, updateUrl;
 	let svg, selectedId, offset;
 	function getMousePosition(evt) {
 		const CTM = svg.getScreenCTM();
@@ -34,6 +34,7 @@
 	}
 	function endDrag() {
 		selectedId = null;
+		updateUrl();
 	}
 	$: actualResultCount = Math.min(resultCount, searchResults.length);
 </script>
@@ -45,8 +46,8 @@
 	on:mousemove={drag}
 	on:mouseup={endDrag}
 	on:mouseleave={endDrag}
-	on:touchstart={startDrag}
-	on:touchmove={drag}
+	on:touchstart|passive={startDrag}
+	on:touchmove|passive={drag}
 	on:touchup={endDrag}
 	on:touchleave={endDrag}
 	on:touchcancel={endDrag}
