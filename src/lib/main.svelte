@@ -7,12 +7,23 @@
 	import { searchRings, scale, SIZE, USER_RINGS, MAX_RESULT_COUNT } from '$lib/utils.js';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import { navigating } from '$app/stores';
+	$: if ($navigating) updateStateFromUrl();
 	let maps = Object.entries(datas).map(([k, v]) => ({
 			id: k,
 			name: `${v.mapName} (${Object.keys(v.rings).length})`,
 			ringRs: Object.values(v.rings)[0].map((x) => scale(x[2]))
 		})),
-		map = maps.find((e) => e.id == ($page.url.searchParams.get('map') || 'we')),
+		map,
+		userRings,
+		searchResults,
+		visibilitys,
+		resultCount;
+	const search = () => {
+		searchResults = searchRings(userRings, datas[map.id].rings);
+	};
+	const updateStateFromUrl = () => {
+		map = maps.find((e) => e.id == ($page.url.searchParams.get('map') || 'we'));
 		userRings = [...Array(USER_RINGS).keys()].map((x) => {
 			return {
 				id: `user-ring-${x + 1}`,
@@ -20,16 +31,16 @@
 				y: parseFloat($page.url.searchParams.get(`r${x + 1}y`)) || SIZE / 2,
 				r: 0
 			};
-		}),
-		searchResults = [],
+		});
+		userRings.forEach((item, idx) => (item.r = map.ringRs[idx]));
+		userRings = userRings;
 		visibilitys = [...Array(MAX_RESULT_COUNT).keys()].map(
 			(x) => ((parseInt($page.url.searchParams.get('vis')) || 1) & (1 << x)) != 0
-		),
+		);
 		resultCount = parseInt($page.url.searchParams.get('rc')) || MAX_RESULT_COUNT;
-	const search = () => {
-		searchResults = searchRings(userRings, datas[map.id].rings);
+		search();
 	};
-	const updateUrl = () => {
+	const updateUrlFromState = () => {
 		$page.url.searchParams.set('map', map.id);
 		$page.url.searchParams.set('rc', resultCount);
 		$page.url.searchParams.set(
@@ -42,17 +53,18 @@
 		}
 		goto(`?${$page.url.searchParams.toString()}`);
 	};
+	updateStateFromUrl();
 </script>
 
 <Corner />
 <div class="flex flex-col">
 	<section class="m-auto p-1">
-		<Select bind:map bind:resultCount {maps} {userRings} {search} {updateUrl} />
+		<Select bind:map bind:resultCount {maps} {search} {updateUrlFromState} />
 	</section>
 	<section class="m-auto p-1 w-full max-w-2xl">
-		<Map bind:userRings {searchResults} {map} {resultCount} {visibilitys} {search} {updateUrl} />
+		<Map bind:userRings {searchResults} {map} {resultCount} {visibilitys} {search} {updateUrlFromState} />
 	</section>
 	<section class="m-auto p-1">
-		<CheckList bind:visibilitys {searchResults} {resultCount} {updateUrl} />
+		<CheckList bind:visibilitys {searchResults} {resultCount} {updateUrlFromState} />
 	</section>
 </div>

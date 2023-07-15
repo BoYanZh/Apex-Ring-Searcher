@@ -1,18 +1,14 @@
 <script>
 	import { Canvg } from 'canvg';
-	export let map, maps, resultCount, search, userRings, updateUrl;
-	import { onMount } from 'svelte';
+	export let map, maps, resultCount, search, updateUrlFromState;
 	import { SIZE } from '$lib/utils.js';
 	function onMapChange() {
-		userRings.forEach((item, idx) => (item.r = map.ringRs[idx]));
-		userRings = userRings;
 		search();
-		updateUrl();
+		updateUrlFromState();
 	}
 	function onResultCountChange() {
-		updateUrl();
+		updateUrlFromState();
 	}
-	onMount(() => onMapChange());
 
 	async function copyImage() {
 		const canvas = document.createElement('canvas');
