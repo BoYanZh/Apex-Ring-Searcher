@@ -1,7 +1,7 @@
 <script>
 	import Ring from '$lib/ring.svelte';
 	import { base } from '$app/paths';
-	import { scale } from '$lib/utils.js';
+	import { SIZE, scale } from '$lib/utils.js';
 	export let map,
 		userRings,
 		searchResults,
@@ -60,14 +60,14 @@
 	on:touchleave={endDrag}
 	on:touchcancel={endDrag}
 	id="svg-container"
-	viewBox="0 0 1024 1024"
+	viewBox={`0 0 ${SIZE} ${SIZE}`}
 	preserveAspectRatio="xMidYMid meet"
 >
-	<image id="image" href={`${base}/maps/${map?.id}.jpg`} width="1024" height="1024" />
+	<image id="image" href={`${base}/maps/${map?.id}.jpg`} width={SIZE} height={SIZE} />
 	<g id="invalid-ending-zones" opacity={0.33}>
 		{#each invalidEndZones as zone}
 			<circle
-				id={`${zone[0]}-${zone[1]}-${zone[2]}`}
+				id={`invalid-ending-zone-${zone[0]}-${zone[1]}-${zone[2]}`}
 				cx={scale(zone[0])}
 				cy={scale(zone[1])}
 				r={scale(zone[2])}
