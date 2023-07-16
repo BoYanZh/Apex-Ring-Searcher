@@ -1,6 +1,8 @@
 export const SIZE = 1024;
 export const USER_RINGS = 2;
+export const MAX_SCORE = 100;
 export const MAX_RESULT_COUNT = 5;
+export const COLORS = ['#00CF00', '#007FFF', '#0000FF', '#7F00FF', '#7F7F7F'];
 export const scale = (x) => (x / 16384) * SIZE;
 export const searchRings = (userRings, sourceRings) => {
 	const similarity = (gameID, rings) => {
@@ -12,7 +14,7 @@ export const searchRings = (userRings, sourceRings) => {
 				const d = Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
 				score += Math.exp(-d / 100) * (i + 1);
 			}
-			score = ((score * 50) / (1 + userRings.length)) * userRings.length;
+			score = ((score * MAX_SCORE) / 2 / (1 + userRings.length)) * userRings.length;
 		}
 		return {
 			gameID: gameID,
@@ -29,7 +31,7 @@ export const searchRings = (userRings, sourceRings) => {
 	};
 	const colorize = (data, idx) => {
 		data.rings.map((x) => {
-			x.color = ['#9400D3', '#FF1493', '#FF69B4', '#FFB6C1', '#FFC0CB'][idx];
+			x.color = COLORS[idx];
 			return x;
 		});
 		return data;
@@ -37,6 +39,6 @@ export const searchRings = (userRings, sourceRings) => {
 	return Object.entries(sourceRings)
 		.map(([k, v]) => similarity(k, v))
 		.sort((a, b) => b.score - a.score)
-		.slice(0, 5)
+		.slice(0, MAX_RESULT_COUNT)
 		.map((x, idx) => colorize(x, idx));
 };
