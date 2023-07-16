@@ -56,6 +56,7 @@
 	preserveAspectRatio="xMidYMid meet"
 >
 	<image id="image" href={`${base}/maps/${map?.id}.jpg`} width="1024" height="1024" />
+	<image id="mask" opacity="0.33" href={`${base}/maps/${map?.id}.red.png`} width="1024" height="1024" />
 	<g id="source-rings">
 		{#each searchResults.slice(0, actualResultCount).reverse() as result, i}
 			{#each result.rings as ring}
