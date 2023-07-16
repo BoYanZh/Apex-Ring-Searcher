@@ -17,7 +17,7 @@
 				<a class="text-blue-600 underline" href="https://tailwindcss.com/">Tailwind CSS</a>.
 			</span>
 			<span id="busuanzi_container_page_pv">
-				Page PV: <span id="busuanzi_value_page_pv">0</span>
+				Page PV: <span id="busuanzi_value_page_pv" />
 			</span>
 			<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 		</p>
