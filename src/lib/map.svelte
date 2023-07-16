@@ -1,7 +1,15 @@
 <script>
 	import Ring from '$lib/ring.svelte';
 	import { base } from '$app/paths';
-	export let map, userRings, searchResults, resultCount, visibilitys, search, updateUrlFromState;
+	import { scale } from '$lib/utils.js';
+	export let map,
+		userRings,
+		searchResults,
+		resultCount,
+		visibilitys,
+		invalidEndZones,
+		search,
+		updateUrlFromState;
 	let svg, selectedId, offset;
 	function getMousePosition(evt) {
 		const CTM = svg.getScreenCTM();
@@ -56,7 +64,17 @@
 	preserveAspectRatio="xMidYMid meet"
 >
 	<image id="image" href={`${base}/maps/${map?.id}.jpg`} width="1024" height="1024" />
-	<image id="mask" opacity="0.33" href={`${base}/maps/${map?.id}.red.png`} width="1024" height="1024" />
+	<g id="invalid-ending-zones" opacity={0.33}>
+		{#each invalidEndZones as zone}
+			<circle
+				id={`${zone[0]}-${zone[1]}-${zone[2]}`}
+				cx={scale(zone[0])}
+				cy={scale(zone[1])}
+				r={scale(zone[2])}
+				fill="red"
+			/>
+		{/each}
+	</g>
 	<g id="source-rings">
 		{#each searchResults.slice(0, actualResultCount).reverse() as result, i}
 			{#each result.rings as ring}

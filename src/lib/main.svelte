@@ -18,7 +18,8 @@
 		userRings,
 		searchResults,
 		visibilitys,
-		resultCount;
+		resultCount,
+		invalidEndZones;
 	const search = () => {
 		searchResults = searchRings(userRings, datas[map.id].rings);
 	};
@@ -38,6 +39,7 @@
 			(x) => ((parseInt($page.url.searchParams.get('vis')) || 1) & (1 << x)) != 0
 		);
 		resultCount = parseInt($page.url.searchParams.get('rc')) || MAX_RESULT_COUNT;
+		invalidEndZones = datas[map.id].invalidEndZones;
 		search();
 	};
 	const updateUrlFromState = () => {
@@ -62,7 +64,7 @@
 		<Select bind:map bind:resultCount {maps} {search} {updateUrlFromState} />
 	</section>
 	<section class="m-auto p-1 w-full max-w-2xl">
-		<Map bind:userRings {searchResults} {map} {resultCount} {visibilitys} {search} {updateUrlFromState} />
+		<Map bind:userRings {searchResults} {map} {resultCount} {visibilitys} {invalidEndZones} {search} {updateUrlFromState} />
 	</section>
 	<section class="m-auto p-1">
 		<CheckList bind:visibilitys {searchResults} {resultCount} {updateUrlFromState} />
