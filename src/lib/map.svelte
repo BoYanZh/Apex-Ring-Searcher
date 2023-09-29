@@ -54,8 +54,8 @@
 	on:mousemove={drag}
 	on:mouseup={endDrag}
 	on:mouseleave={endDrag}
-	on:touchstart|passive={startDrag}
-	on:touchmove|passive={drag}
+	on:touchstart|nonpassive={startDrag}
+	on:touchmove|nonpassive={drag}
 	on:touchup={endDrag}
 	on:touchleave={endDrag}
 	on:touchcancel={endDrag}
