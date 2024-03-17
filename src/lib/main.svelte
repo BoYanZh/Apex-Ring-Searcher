@@ -8,11 +8,25 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { navigating } from '$app/stores';
-	$: if ($navigating) updateStateFromUrl();
 	let maps = Object.entries(datas).map(([k, v]) => ({
 			id: k,
 			name: `${v.mapName} (${Object.keys(v.rings).length})`,
-			ringRs: Object.values(v.rings)[0].map((x) => scale(x[2]))
+			ringRs: (() => {
+				let res = [];
+				for (let i = 0; i < 6; i++) {
+					res.push(
+						Math.max(
+							...Object.values(v.rings).map((x) => {
+								if (x[i]) {
+									return scale(x[i][2]);
+								}
+								return 0;
+							})
+						)
+					);
+				}
+				return res;
+			})()
 		})),
 		map,
 		userRings,
@@ -20,6 +34,7 @@
 		visibilitys,
 		resultCount,
 		invalidEndZones;
+	$: if ($navigating) updateStateFromUrl();
 	const search = () => {
 		searchResults = searchRings(userRings, datas[map.id].rings);
 	};
